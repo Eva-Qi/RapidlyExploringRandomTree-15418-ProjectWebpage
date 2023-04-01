@@ -5,9 +5,276 @@
     <meta name = "viewport" content = "width = device-width, initial-scale=1">
     <meta name = "description" content = "Course Project website dedicated to Parallel Computer Architecture and Programming, Spring 2023.">
     <meta name = "subject" content = "15418-Project-RapIdLyeXplORingRanDoMTree!">
+    <!--Associated with course https://www.cs.cmu.edu/~418/schedule.html-->
+    <!--style sheet by https://codepen.io/vinay-khatri/pen/bGKdBXx-->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-    helloooooo~~
-</body>
+    <nav id="sidebar">
+      <h2>MA-RRT</h2>
+      <ul>
+        <li><a class="nav-item" href="#Introduction">Introduction</a></li>
+        <li>
+          <a class="nav-item" href="#goals">Goals</a>
+        </li>
+        <li>
+          <a class="nav-item" href="#challenges">Challenges</a>
+        </li>
+        <li><a class="nav-item" href="#specifics">Performance Targets</a></li>
+        <li><a class="nav-item" href="#schedule">Tentative Schedule</a></li>
+        <li>
+          <a class="nav-item" href="#html_paragraph">Update:April 4th</a>
+        </li>
+        <li><a class="nav-item" href="#html_style">Update:April 8th</a></li>
+        <li><a class="nav-item" href="#html_formatting">Update:Apr.12th</a></li>
+        <li><a class="nav-item" href="#reference">Reference</a></li>
+      </ul>
+    </nav>
+    <main id="documentation">
+      <section id="Introduction">
+        <h2>Introduction</h2>
+        <article>
+          <p>
+            Hi! We are Chi Gao and Eva Qi, teammates in course <a href="https://www.cs.cmu.edu/~418/index.html">15-418 Parallel Computer Architecture and Programming</a> at CMU. 
+            </p>
+            <p>
+            Path-planning is a critical task in robotics that involves finding a path from an initial state to a goal state while avoiding obstacles. Rapidly exploring random trees (RRT) is an algorithm commonly used for this purpose. RRTs work by randomly exploring nodes and checking for collisions in a massive state space, making them efficient for solving complex path-planning problems.
+            MA-RRT stands for Multi-agent Rapidly Exploring Random Tree. [Futher discussion needed]
+          </p>
+          <!-- <h3>Main Goals</h3>
+          <pre>
+            Our final project will be delivered in two forms: an analysis and an interactive demo. The analysis will involve processing statistics collected from various benchmark files and presenting graphs to our audience. During this presentation, we will discuss the challenges we encountered as well as the advantages and drawbacks of our implementation. In addition to the poster presenting the statistics, we will also launch our implementation on GHC machines. This will allow people to create their own maps and define start and goal positions. We will then run both the sequential and parallel implementations to demonstrate the performance difference between the two approaches and provide a better understanding of our project. -->
+
+  <!-- &lt;!DOCTYPE html&gt;
+                  &lt;html&gt;
+                  &lt;head&gt;
+                  &lt;title&gt;Page Title&lt;/title&gt;
+                  &lt;/head&gt;
+                  &lt;body&gt;
+  
+                  &lt;h1&gt;This is a Heading&lt;/h1&gt;
+                  &lt;p&gt;This is a paragraph.&lt;/p&gt;
+  
+                  &lt;/body&gt;
+                  &lt;/html&gt;-->
+        <!-- </pre> -->
+        </article>
+      </section>
+      <section id="goals">
+        <h2>Goals</h2>
+        <article>
+          <p>
+            Our final project will be delivered in two forms: an analysis and an interactive demo. The analysis will involve processing statistics collected from various benchmark files and presenting graphs to our audience. During this presentation, we will discuss the challenges we encountered as well as the advantages and drawbacks of our implementation. In addition to the poster presenting the statistics, we will also launch our implementation on GHC machines. This will allow people to create their own maps and define start and goal positions. We will then run both the sequential and parallel implementations to demonstrate the performance difference between the two approaches and provide a better understanding of our project. <a href="#specifics">Performance targets</a> and <a href="#schedules">delivery schedule</a> are further discussed below.
+          </p>
+          <!-- <pre>&lt;p class= "para"&gt; Hello World &lt;/p&gt;</pre> -->
+        </article>
+      </section>
+      <section id="challenges">
+        <h2>Challenges</h2>
+        <article>
+          <p>
+            Rapidly exploring random trees (RRT) is a well-known algorithm for path-planning, but it is often computationally expensive and unstable. This is due to the fact that RRT must expand in all different directions, leading to significant variation in single core execution times, from quickly finding the goal to frequently hitting obstacles. 
+          </p>
+          <p>We list the potential setbacks below:</p>
+  
+          <ul>
+            <li>Implementing RRT with linear speedup using multiple cores in a single agent planning context is our first challenge.</li>
+            <li>Naive assignment of subtrees to each core can result in load imbalance due to some nodes hitting obstacles and terminating early.</li>
+            <li>Task stealing will be implemented to allow threads that have hit dead ends to take expanding subtrees from others and finish the work faster.</li>
+            <li>Careful selection of stolen data and when to steal is crucial to ensure correctness and minimize communication overhead.</li>
+            <li>Multi-agent planning requires additional considerations, such as allowing overlapping paths for agents travelling to the same spot at different times and resolving collisions when multiple agents occupy the same spot at the same time.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section id="specifics">
+        <h2>Performance Targets</h2>
+        <article>
+          <p>
+            Our goal in this project is to significantly improve the speedup of RRT, approaching the number of processors used as closely as possible. We have established the following measures of success:
+        </p>
+        <p>Challenge 1: Task Stealing on a Single Agent</p>
+        <ul>
+            <li>Plan to Achieve: Correct and at least 7 times speedup on an 8-core GHC machine.
+                With task stealing implemented and minimal communication required, we can overcome overhead and workload imbalance issues and achieve a speedup of at least 7 using 8 cores.</li>
+            <li>Hope to Achieve: Speedup very close to the number of processors used (n ± 0.5 given n processors).</li>
+        </ul>
+        <p>Challenge 2: Multithreading on Multiple Agents</p>
+        <ul>
+            <li>Plan to Achieve: Correct and at least n/2 times speedup using n cores on a PSC machine. More communication is needed to check between agents, and we are aware of potential hidden challenges.
+                Hope to Achieve: 3/4 times speedup using n cores on a PSC machine.</li>
+            <li>We are confident in our ability to achieve these goals and will seek consultation with experts as needed to overcome any obstacles.</li>
+        </ul>
+          <!-- </p>
+          <pre>&lt;image src= "cat.jpg" alt ="cat image"&gt;</pre>
+          <p> -->
+          </p>
+        </article>
+      </section>
+      <section id="schedule">
+        <h2>Tentative Schedule</h2>
+        <p>
+          To display the section heading, title or subtitle we can use the HTML
+          heading tags. In HTML 5 we have 6 heading tags start from &lt;h1&gt;
+          up to &lt;h6&gt;, where &lt;h1&gt; specify the largest heading and
+          &lt;h6&gt; represent the smallest or sub heading. If the content is
+          specified by heading tags, then it would be displayed large and bold
+          as compared to other text content present on the web-page.
+          <strong> Example </strong>
+        </p>
+        <pre>
+  &lt;h1&gt;First Heading &lt;/h1&gt;
+              &lt;h2&gt;Second Heading &lt;/h2&gt;
+              &lt;h3&gt;Third Heading &lt;/h3&gt;
+              &lt;h4&gt;Forth Heading &lt;/h4&gt;
+              &lt;h5&gt;Fifth Heading &lt;/h5&gt;
+              &lt;h6&gt;Sixth Heading &lt;/h6&gt;</pre>
+      </section>
+      <section id="html_paragraph">
+        <h2>HTML Paragraph</h2>
+        <article>
+          <p>
+            In HTML paragraphs can be defined using &lt;p&gt; element. Paragraph
+            text always starts from a new line, the browser parsed the &lt;p&gt;
+            tag and automatically add some margin and white space after the end
+            &lt;/p&gt; tag.
+          </p>
+          <pre>
+  &lt;p&gt; Hello! and Welcome to TechGeekBuzz &lt;/p&gt;
+                  &lt;p&gt; Here you get to know all about the latest technology. &lt;/p&gt;</pre>
+        </article>
+      </section>
+      <section id="html_style">
+        <h2>HTML Style</h2>
+        <article>
+          <p>
+            Every browser has a specific engine that parses the HTML document and displays a default style of the page content.
+          </p>
+          <pre>&lt;body style="background-color:yellow;"&gt;
+  
+                  &lt;h1&gt;TechGeekBuzz&lt;/h1&gt;
+                  &lt;p&gt;Welcome to TechGeekBuzz.&lt;/p&gt;
+                  
+                  &lt;/body&gt;</pre>
+        </article>
+      </section>
+      <section id="html_formatting">
+        <h2>HTML Formatting</h2>
+        <article>
+          <p>
+            In HTML, we have many special elements that can provide special meaning to text content.
+          </p>
+          <div class="hscroll">
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <a href="https://www.techgeekbuzz.com/html-elements/">
+                      HTML Elements
+                    </a>
+                  </td>
+                  <td>
+                    Description
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &lt;b&gt;
+                  </td>
+                  <td>
+                    Bold the text
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &lt;strong&gt;
+                  </td>
+                  <td>
+                    An alternative for &lt;b&gt;, which tell that this text is essential.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &lt;i&gt;
+                  </td>
+                  <td>
+                    Italic the text
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &lt;em&gt;
+                  </td>
+                  <td>
+                    Similar to italic but used when we want to emphasize the text.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &lt;mark&gt;
+                  </td>
+                  <td>
+                    It marks the text with a default "yellow" background colour
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &lt;small&gt;
+                  </td>
+                  <td>
+                    Decrease the text size
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &lt;del&gt;
+                  </td>
+                  <td>
+                    It prints a cross line over the text.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &lt;ins&gt;
+                  </td>
+                  <td>
+                    Represents the inserted text by putting an underline.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &lt;sub&gt;
+                  </td>
+                  <td>
+                    This element is used to display the subscript.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    &lt;sup&gt;
+                  </td>
+                  <td>
+                    It can make a text superscript.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+  
+      <section id="reference">
+        <h2>Reference</h2>
+        <article>
+          <ul>
+            <li>
+              All the documentation in this page is taken from
+              <a href="https://www.techgeekbuzz.com/tutorial/html/" target="_blank">HTML Tutorial</a>
+            </li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
 
 </html>
