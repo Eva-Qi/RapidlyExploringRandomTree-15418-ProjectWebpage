@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale=1">
+    <meta name = "description" content = "Course Project website dedicated to Parallel Computer Architecture and Programming, Spring 2023.">
+    <meta name = "subject" content = "15418-Project-RapIdLyeXplORingRanDoMTree!">
+    <!--Associated with course https://www.cs.cmu.edu/~418/schedule.html-->
+    <!--style sheet by https://codepen.io/vinay-khatri/pen/bGKdBXx-->
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+<body>
+    <nav id="sidebar">
+      <h2><a href="../index.html" style="color: #d78a8a;">MA-RRT Main Page</a></h2>
+      <ul>
+        <li><a class="nav-item" href="#Introduction">TL:DR</a></li>
+        <li>
+          <a class="nav-item" href="#Rice">Rice Presentation</a>
+        </li>
+        <li>
+          <a class="nav-item" href="#RRT">RTT*</a>
+        </li>
+        <li><a class="nav-item" href="#specifics">More Papers</a></li>
+      </ul>
+    </nav>
+    <main id="documentation">
+      <section id="Introduction">
+        <h2>TL:DR</h2>
+        <article>
+          <p>
+            We looked into Rice University's <a href= "https://www.youtube.com/watch?v=C3SuxMtw9nQ">presentation</a>. Then we read the fundamental <a href="https://arxiv.org/abs/1105.1186">paper</a> on RRT*. Then we looked into other Path planning Algorithms(such as PRM) along with their paper/implications. 
+          </p>
+        </article>
+      </section>
+      <section id="Rice">
+        <h2>Rice Universtiy Video</h2>
+        <article>
+          <p>
+            What we learned from the video:
+              <ul>
+                <li>Sequential Approach</li>
+                The sequential approach essentailly randomly choose a point and advance towards that point for a fixed step size.
+                When we say advance we mean the tree takes the closest node to that point and grow a new node.
+                The randomness lies within the angle where we advance.
+                <div style="position: relative; width: 500px; height: 200px;">
+                  <img src="../img/RRT_exp.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+                </div>
+                <div style="position: relative; width: 500px; height: 200px;">
+                  <img src="../img/RRT_exp2.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+                </div>
+                 We think <b>in the future we can randomly select the step size</b>
+                <li>Their Parallel Approach</li>
+                Instead of growing one node at one time, they grow three nodes parallely and communicate the tree. So the growing is done parallelly using OpenMP library in C++ to create multiple threads. <br>
+                Their identification of bottleneck is edge creation and collision checking. So they divoded that work among parallel threads.
+                <li>Their testing</li>
+                The algorithm was tested on both simulated and real-world robots. The testing specifics are as follows. 
+                <div style="position: relative; width: 500px; height: 300px;">
+                  <img src="../img/RICE_car.jpg" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+                </div>
+                The environment they tested both included obstacles and without obstacles
+                Here's their result:
+                <div style="position: relative; width: 500px; height: 300px;">
+                  <img src="../img/RICE_Result.jpg" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+                </div>
+                <li> Our Critique</li>
+                  Overall the presentation gives the naive approach to parallel RRT. To our thinking, the speedup is not so promissing between two threads and three. Moreover because this is a general introduction, it didn't touch any of the details we'd like to see -- Race conditions handling, load imbalance issues, communication overhead. There's no discussion nor data on it. Admittedly it's because of the limited thread number, but that also incentiviced us to think if we can introduce more nodes in each step. Then it became the question of am I spending too much time on the near boundary per distance advanced -- because each time we are doing n times more nodes added. So to make it more efficient we should consider having the randomly generated nodes to not be in the fixed step size. We will go into deeper discussion on this next meeting and think of the setbaqcks.
+
+              </ul>
+          </p>
+        </article>
+      </section>
+      <section id="RRT">
+        <h2>RRT*</h2>
+        <article>
+          <ul>
+            <li>PRM</li>
+            <div style="position: relative; width: 500px; height: 200px;">
+              <img src="../img/PRM_paper_def.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+            </div>
+            So PRM the whole thing looked like generating a map of nodes then to use them for no reason to me. As such I looked into this video:
+            <div>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/gP6MRe_IHFo" 
+              title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+              encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+              </iframe>
+            </div>
+            Which did a great job in explaining things through. <br>
+            So it also did a little introduction of RRT* -- basically the modification is that<br>
+            <ul>
+              <li>When adding a node, usual RRT checks for the closest neighbor, this time we also check for the neighbor that result the shortest path to the origin node. We pick the shortest routing distance one.</li>
+              <li>When adding a node, we check everyone in its neighboring distance to see if we can reroute others.</li>
+              <li>Thinking about paralleling this makes me headach. </li>
+              </ul>
+            It also introduced PRM. So basically we sample random points, and we connect their k-nearst neighbors. We don't need to create a new graph for each query.
+            <br> Oh there's also RRT March which is essentially the same idea as randomizing the step size. This would create efficiency.
+            <li>Some Complexity</li>
+            <div style="position: relative; width: 500px; height: 200px;">
+              <img src="../img/Arxiv_Run_Time_Comp.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+            </div>
+            Beyond that the paper whent too deep into proving the proabablistic completeness of all the algorithms. 
+            <li>RRT,RRT* COMP</li> 
+            <div style="position: relative; width: 800px; height: 800px;">
+              <img src="../img/Arxiv_RRT,RRT*comp.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+            </div>
+            So here a-d, i is RRT, and the rest are using RRT*, both run on 250, 500, 2500, 10000 and 20000nodes.
+            </ul>
+            Some best path cost comparison:
+            <div style="position: relative; width: 800px; height: 700px;">
+              <img src="../img/Arxiv_bestpathcomp.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+            </div>
+            And some comparison between paths formed by RRT and RRT* running on obstacled environments.
+            <div style="position: relative; width: 800px; height: 500px;">
+              <img src="../img/Arxiv_comp_obs.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+            </div>
+          <p>
+            What does all of these tell us:
+            <br> We want RRT*! And Multi core Multi Agent RRT*.
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+
+</html>

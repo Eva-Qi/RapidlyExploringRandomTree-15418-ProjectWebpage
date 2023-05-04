@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale=1">
+    <meta name = "description" content = "Course Project website dedicated to Parallel Computer Architecture and Programming, Spring 2023.">
+    <meta name = "subject" content = "15418-Project-RapIdLyeXplORingRanDoMTree!">
+    <!--Associated with course https://www.cs.cmu.edu/~418/schedule.html-->
+    <!--style sheet by https://codepen.io/vinay-khatri/pen/bGKdBXx-->
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+<body>
+    <nav id="sidebar">
+      <h2><a href="../index.html" style="color: #9FA2B1;">MA-RRT Main Page</a></h2>
+      <ul>
+        <li><a class="nav-item" href="#Introduction">Introduction</a></li>
+        <li><a class="nav-item" href="#schedule">Tentative Schedule</a></li>
+
+        <li>
+          <a class="nav-item" href="#goals">Goals</a>
+        </li>
+        <li>
+          <a class="nav-item" href="#completed">Completed Work</a>
+        </li>
+        <li><a class="nav-item" href="#specifics">Performance Targets</a></li>
+
+        <li>
+          <a class="nav-item" href="#?">Reflecting Goals</a>
+        </li>
+        <li>
+          <a class="nav-item" href="#.">Presentation Format</a>
+        </li>
+      </ul>
+    </nav>
+    <main id="documentation">
+      <section id="Introduction">
+        <h2>Introduction</h2>
+        <article>
+          <p>
+            This page is a milestone page following work done in the previous half month.
+          </p>
+        </article>
+      </section>
+      <section id="schedule">
+        <h2>Tentative Schedule</h2>
+        Our tentative schedule has proved somewhat effective over the past half month. 
+        As such, we intend to continue with a meeting schedule of every 5-7 days, 
+        but with a more focused approach to each half-week's tasks.
+        We plan to convene during our free time and work independently on the project when our schedules don't align. Our schedule will include a dedicated session on Wednesdays, as we intend to leverage Professor B. Railing's Office Hour on Thursdays to assess our progress.
+        These are the dates that we propose to meet and have progressional report written on the website:
+        <pre>
+          <a style="color: #9FA2B1;">office hour</a>
+          April 21st
+          April 23rd
+          April 25-26th 
+          <a style="color: #9FA2B1;">office hour</a>
+          April 29th
+          April 30th
+          May 3rd
+          May 4th
+          <a style="color: #9FA2B1;">office hour</a>
+          May 5th -- present date
+         </pre>
+         The dates listed are subject to change, and team members are encouraged to work on the project during their free time.
+          <br>
+        A better graph is 
+      </section>
+      <section id="goals">
+        <h2>Goals</h2>
+        In total that's two more weeks, we make plan for each half week.
+        <article>
+          <ul>
+            <li> 1st</li>
+              <ul>
+                <li>
+                  Best case: We plan to finish the current parallel code on single agent RRT planning. Produce speed-up graphs.
+                </li>
+                <li>
+                  Worst case: We finish debug parallel code on single agent RRT planning.
+                </li>
+              </ul>
+            <li> 2nd</li>
+            <ul>
+              <li>
+                Best case: Start on Sequential Multi-agent RRT planning. Finish Documentation of SA-RRT.
+              </li>
+              <li>
+                Worst case: SA-RRT eats into the second half week. Definitely finish SA-RRT this week.
+              </li>
+            </ul>
+            <li> 3rd</li>
+            <ul>
+              <li>
+                Best case: Create and debug MA-RRT code.
+              </li>
+              <li>
+                Worst case: Start on MA-RRT. Finished documentation of SA-RRT.
+              </li>
+            </ul>
+            <li> 4th</li>
+            <ul>
+              <li>
+                Best case: Finish MA-RRT, documentation, prepare for presentation, look into Nice-to-Haves.
+              </li>
+              <li>
+                Worst case: Depend on the progress of MA-RRT, either finish it or adding potential upgrades to the SA-RRT.
+              </li>
+            </ul>
+          </ul>
+          <!-- <pre>&lt;p class= "para"&gt; Hello World &lt;/p&gt;</pre> -->
+        </article>
+        <div style="position: relative; width: 800px; height: 500px;">
+          <img src="../img/plan.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+        </div>
+      </section>
+      <section id="completed">
+        <h2>Completed Work</h2>
+        <article>
+          <p>During the initial weeks, we dedicated ourselves to exploring the broad topic of
+          Path Finding Algorithms, examining other approaches such as RRT* and PRM,
+          and delving into common parallelization techniques. This period of exploration
+          was heavily focused on learning. We read numerous papers, lecture materials,
+          and examined other people’s sequential code. Our team also researched and experimented with Cilk, 
+          ensuring our code was compatible with its compiler. We dedicated time to brainstorming novel ideas for optimizing parallelism, carefully
+          examining edge cases and potential optimizations. Our reports can be found on
+          the website.</p>
+          <p>At present, we have a fully functional single agent RRT implementation, against
+          which we will create speedup graphs. Additionally, we have completely coded
+          out the parallel optimization using OpenMP.</p>
+          <p>Our team is currently testing our pthread parallel implementation with 2 threads,
+          but we are facing a challenge where no path can be found in a map without
+          obstacles, despite each thread having a step size of 3 and a maximum iteration
+          of 3000. Based on our analysis, the sequential implementation can find a path
+          with the same set of parameters, and each thread should have no difficulty navigating through only half of the map. We suspect that the issue stems from
+          bugs in our shared data structures, and we are actively working to resolve it as
+          soon as possible.</p>
+          
+        </article>
+      </section>
+
+      <section id="specifics">
+        <h2>Performance Targets</h2>
+        <article>
+          <p>
+            Our goal in this project is to significantly improve the speedup of RRT, approaching the number of processors used as closely as possible. We have established the following measures of success:
+        </p>
+        <p>Challenge 1: Task Stealing on a Single Agent</p>
+        <ul>
+            <li>Plan to Achieve: Correct and at least 7 times speedup on an 8-core GHC machine.
+                With task stealing implemented and minimal communication required, we can overcome overhead and workload imbalance issues and achieve a speedup of at least 7 using 8 cores.</li>
+            <li>Hope to Achieve: Speedup very close to the number of processors used (n ± 0.5 given n processors).</li>
+        </ul>
+        <p>Challenge 2: Multithreading on Multiple Agents</p>
+        <ul>
+            <li>Plan to Achieve: Correct and at least n/2 times speedup using n cores on a PSC machine. More communication is needed to check between agents, and we are aware of potential hidden challenges.
+                Hope to Achieve: 3/4 times speedup using n cores on a PSC machine.</li>
+            <li>We are confident in our ability to achieve these goals and will seek consultation with experts as needed to overcome any obstacles.</li>
+        </ul>
+          <!-- </p>
+          <pre>&lt;image src= "cat.jpg" alt ="cat image"&gt;</pre>
+          <p> -->
+          </p>
+        </article>
+      </section>
+
+
+      <section id="?">
+        <h2>Reflecting Goals</h2>
+        <article>
+          <p>
+          Based on our current progress, we are confident that we can deliver most of our
+          planned deliverables, although we may not be able to achieve all of our initial
+          goals as outlined in our proposal. The first challenge we set for ourselves was
+          to implement task stealing on a single agent, but after gaining a better understanding of the RRT algorithm, we now understand that this is not a feasible
+          approach(Difficulty listed below), or at least not as profitable. The most costly
+          portion of a RRT algorithm, as identified by many, are the neighbor searching
+          and edge adding. They can definitely be done parallely, but the cost of sending
+          and receiving data is tremendous. Instead, we plan to focus on completing the
+          second challenge, which is to parallelize the RRT* algorithm. With its ability
+          to prune using some heuristic, we believe that this algorithm offers significant
+          potential for optimization.</p><p>
+          In addition to our original goals, we have also added some ”nice-to-haves” for
+          consideration. One such goal is to overcome terrains where the previously sequential RRT cannot find a valid solution. We plan to accomplish this by
+          randomly choosing a step size. Another goal is to compare and potentially
+          parallelize other sample-based pathfinding algorithms, such as PRM and RRTconnect, in order to further expand our project’s scope and utility. By achieving
+          these ”nice-to-haves”, we aim to demonstrate our ability to effectively innovate
+          within the field of robotics and to provide our audience with a more comprehensive understanding of the strengths and limitations of various pathfinding
+          approaches.</p><p>
+          (We used to think RRT is just randomly creating points and connect them,
+          which makes task-stealing available. After viewing through some materials, we
+          realized that RRT algorithm by nature is sequential because each expansion of
+          the tree depends on the previous tree. Therefore we need to figure out how
+          to parallelize it (i.e., how to create independent work batches and assign them
+          to cores) and we have found some approahes, none of which stealing seemed
+          profitable)</p>
+          <pre>
+        </article>
+      </section>
+
+      <section id=".">
+        <h2>Presenttion Format</h2>
+        <article>
+          <p>
+            There are several ways that we plan to present the results of our parallel RRT*
+            implementation. First, we will conduct a performance analysis of our parallel
+            implementation and compare it to the sequential implementation using various
+            benchmark files, including those deemed impossible by the sequential approach.
+            We will then present our findings in the form of graphs and charts during our
+            poster session.</p><p>
+              Second, we will provide an interactive demo of our implementation running on
+              GHC machines. During this demo, users will be able to create their own maps
+              and define start and goal positions. We will then run both the sequential and
+              parallel implementations and showcase the performance difference between the
+              two approaches.</p><p>
+                Lastly, our goal is to complete the parallelization of the MA-RRT algorithm.
+                This means our presentation will enable students to define a list of robot positions and observe how the algorithm plans a path for each robot to navigate
+                through blocked terrain without interfering with each others' path. As a result,
+                the robots will converge into a file and ultimately reach their intended endpoint</p>
+          <pre>
+        </article>
+      </section>
+    </main>
+  </body>
+
+</html>

@@ -8,26 +8,29 @@
     <!--Associated with course https://www.cs.cmu.edu/~418/schedule.html-->
     <!--style sheet by https://codepen.io/vinay-khatri/pen/bGKdBXx-->
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/youtube.css">
 </head>
 <body>
     <nav id="sidebar">
       <h2>MA-RRT</h2>
       <ul>
-        <li><a class="nav-item" href="#Introduction">Introduction</a></li>
+        <li><a class="nav-item" style="pointer-events: none; font-size: 48px; font-weight: bold;"></a>Schedule and Report</a>
+        <li><a class="nav-item" href="html/Proposal.html" style="color:#8ecfe0;"> March_23rd Proposal</a></li>
         <li>
-          <a class="nav-item" href="#goals">Goals</a>
+          <a class="nav-item" href="html/Learning.html" style="color:#d78a8a;">March_28th</a>
         </li>
         <li>
-          <a class="nav-item" href="#challenges">Challenges</a>
+          <a class="nav-item" href="html/Sequential.html"style="color: hsl(340, 50%, 80%);">April 5th</a>
         </li>
-        <li><a class="nav-item" href="#specifics">Performance Targets</a></li>
-        <li><a class="nav-item" href="#schedule">Tentative Schedule</a></li>
-        <li>
-          <a class="nav-item" href="#html_paragraph">Update:April 4th</a>
+        <li><a class="nav-item" href="#specifics" style="color: #C5C5C5;">April 10th</a></li>
+        <li><a class="nav-item" href="#schedule" style="color: #BE81F7;"> April 15th</a></li>
+        <li><a class="nav-item" href="html/Milestone.html" style="color: #9FA2B1;">April 19th MileStone</a></li>
+        <!-- <li> -->
+          <!-- <a class="nav-item" href="#html_paragraph">Update:April 4th</a>
         </li>
         <li><a class="nav-item" href="#html_style">Update:April 8th</a></li>
         <li><a class="nav-item" href="#html_formatting">Update:Apr.12th</a></li>
-        <li><a class="nav-item" href="#reference">Reference</a></li>
+        <li><a class="nav-item" href="#reference">Reference</a></li> -->
       </ul>
     </nav>
     <main id="documentation">
@@ -41,6 +44,10 @@
             Path-planning is a critical task in robotics that involves finding a path from an initial state to a goal state while avoiding obstacles. Rapidly exploring random trees (RRT) is an algorithm commonly used for this purpose. RRTs work by randomly exploring nodes and checking for collisions in a massive state space, making them efficient for solving complex path-planning problems.
             MA-RRT stands for Multi-agent Rapidly Exploring Random Tree. [Futher discussion needed]
           </p>
+          Current Half-Project plan is:
+          <div style="position: relative; width: 800px; height: 500px;">
+            <img src="img/plan.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+          </div>
           <!-- <h3>Main Goals</h3>
           <pre>
             Our final project will be delivered in two forms: an analysis and an interactive demo. The analysis will involve processing statistics collected from various benchmark files and presenting graphs to our audience. During this presentation, we will discuss the challenges we encountered as well as the advantages and drawbacks of our implementation. In addition to the poster presenting the statistics, we will also launch our implementation on GHC machines. This will allow people to create their own maps and define start and goal positions. We will then run both the sequential and parallel implementations to demonstrate the performance difference between the two approaches and provide a better understanding of our project. -->
@@ -61,33 +68,54 @@
         </article>
       </section>
       <section id="goals">
-        <h2>Goals</h2>
+        <h2>This PAGE</h2>
         <article>
           <p>
-            Our final project will be delivered in two forms: an analysis and an interactive demo. The analysis will involve processing statistics collected from various benchmark files and presenting graphs to our audience. During this presentation, we will discuss the challenges we encountered as well as the advantages and drawbacks of our implementation. In addition to the poster presenting the statistics, we will also launch our implementation on GHC machines. This will allow people to create their own maps and define start and goal positions. We will then run both the sequential and parallel implementations to demonstrate the performance difference between the two approaches and provide a better understanding of our project. <a href="#specifics">Performance targets</a> and <a href="#schedules">delivery schedule</a> are further discussed below.
+            This page contains links to each meeting's report to the project. 
+            <br>It will also provide links to some materials that we used across the project.
+            <br>I hope to add a graph signaling project completion rate below.
           </p>
+          <h3>Previous submitted Report</h3>
+          <p>
+            <a href="./15418_Final_Project_Proposal.pdf">Project Proposal</a>
+            </p>
           <!-- <pre>&lt;p class= "para"&gt; Hello World &lt;/p&gt;</pre> -->
         </article>
       </section>
       <section id="challenges">
-        <h2>Challenges</h2>
+        <h2>Youtube Videos</h2>
+        <p>Here we give credit to all the youtube videos that provided assistance during the project</p>
+        <div class="videos-container">
+          <div class="video">
+            <a href="https://www.youtube.com/watch?v=C3SuxMtw9nQ">
+              <img src="https://i.ytimg.com/vi/C3SuxMtw9nQ/hqdefault.jpg" />
+              <div class="video-overlay"></div>
+            </a>
+          </div>
+          <div class="video">
+            <a href="https://www.youtube.com/watch?v=tas0O586t80">
+              <img src="https://i.ytimg.com/vi/tas0O586t80/hqdefault.jpg" />
+              <div class="video-overlay"></div>
+            </a>
+          </div>
+          <div class="video">
+            <a href="https://www.youtube.com/watch?v=s_gAWXi_LBA">
+              <img src="https://i.ytimg.com/vi/s_gAWXi_LBA/hqdefault.jpg" />
+              <div class="video-overlay"></div>
+            </a>
+          </div>
+          <div class="video">
+            <a href="https://www.youtube.com/watch?v=gP6MRe_IHFo">
+              <img src="https://i.ytimg.com/vi/gP6MRe_IHFo/hqdefault.jpg" />
+              <div class="video-overlay"></div>
+            </a>
+          </div>
+        </div>
+        <!-- Let's see if this works-->
         <article>
-          <p>
-            Rapidly exploring random trees (RRT) is a well-known algorithm for path-planning, but it is often computationally expensive and unstable. This is due to the fact that RRT must expand in all different directions, leading to significant variation in single core execution times, from quickly finding the goal to frequently hitting obstacles. 
-          </p>
-          <p>We list the potential setbacks below:</p>
-  
-          <ul>
-            <li>Implementing RRT with linear speedup using multiple cores in a single agent planning context is our first challenge.</li>
-            <li>Naive assignment of subtrees to each core can result in load imbalance due to some nodes hitting obstacles and terminating early.</li>
-            <li>Task stealing will be implemented to allow threads that have hit dead ends to take expanding subtrees from others and finish the work faster.</li>
-            <li>Careful selection of stolen data and when to steal is crucial to ensure correctness and minimize communication overhead.</li>
-            <li>Multi-agent planning requires additional considerations, such as allowing overlapping paths for agents travelling to the same spot at different times and resolving collisions when multiple agents occupy the same spot at the same time.</li>
-          </ul>
-        </article>
       </section>
 
-      <section id="specifics">
+      <!-- <section id="specifics">
         <h2>Performance Targets</h2>
         <article>
           <p>
@@ -105,13 +133,9 @@
                 Hope to Achieve: 3/4 times speedup using n cores on a PSC machine.</li>
             <li>We are confident in our ability to achieve these goals and will seek consultation with experts as needed to overcome any obstacles.</li>
         </ul>
-          <!-- </p>
-          <pre>&lt;image src= "cat.jpg" alt ="cat image"&gt;</pre>
-          <p> -->
-          </p>
         </article>
-      </section>
-      <section id="schedule">
+      </section> -->
+      <!-- <section id="schedule">
         <h2>Tentative Schedule</h2>
         <p>
           To display the section heading, title or subtitle we can use the HTML
@@ -273,7 +297,7 @@
             </li>
           </ul>
         </article>
-      </section>
+      </section> -->
     </main>
   </body>
 

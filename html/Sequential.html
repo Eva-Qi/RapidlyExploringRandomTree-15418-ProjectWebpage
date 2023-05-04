@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale=1">
+    <meta name = "description" content = "Course Project website dedicated to Parallel Computer Architecture and Programming, Spring 2023.">
+    <meta name = "subject" content = "15418-Project-RapIdLyeXplORingRanDoMTree!">
+    <!--Associated with course https://www.cs.cmu.edu/~418/schedule.html-->
+    <!--style sheet by https://codepen.io/vinay-khatri/pen/bGKdBXx-->
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+<body>
+    <nav id="sidebar">
+      <h2><a href="../index.html" style="color: #d78a8a;">MA-RRT Main Page</a></h2>
+      <ul>
+        <li><a class="nav-item" href="#Introduction">TL:DR</a></li>
+        <li>
+          <a class="nav-item" href="#goals">Rice Presentation</a>
+        </li>
+        <li>
+          <a class="nav-item" href="#challenges">RTT*</a>
+        </li>
+        <li><a class="nav-item" href="#specifics">More Papers</a></li>
+      </ul>
+    </nav>
+    <main id="documentation">
+      <section id="Introduction">
+        <h2>TL:DR</h2>
+        <article>
+          <p>
+            We look into <a href="https://github.com/sourishg/rrt-simulator">sequential</a> code for RRT. <br>
+            We also found <a href="https://www.cs.cmu.edu/~motionplanning/lecture/lec20.pdf"> Lecture notes from Robotics Institute </a>
+          </p>
+        </article>
+      </section>
+      <section id="goals">
+        <h2>Rice Universtiy Video</h2>
+        <article>
+          <p>
+            What we learned from the video:
+              <ul>
+                <li>Sequential Approach</li>
+                The sequential approach essentailly randomly choose a point and advance towards that point for a fixed step size.
+                When we say advance we mean the tree takes the closest node to that point and grow a new node.
+                The randomness lies within the angle where we advance.
+                <div style="position: relative; width: 500px; height: 200px;">
+                  <img src="../img/RRT_exp.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+                </div>
+                <div style="position: relative; width: 500px; height: 200px;">
+                  <img src="../img/RRT_exp2.png" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 100%;" alt="RRT explanation">
+                </div>
+                 We think <b>in the future we can randomly select the step size</b>
+                <li>Their Parallel Approach</li>
+                Instead of growing one node at one time, they grow three nodes parallely and communicate the tree. So the growing is done parallely. 
+                Here's their result:
+              </ul>
+          </p>
+        </article>
+      </section>
+      <section id="challenges">
+        <h2>Challenges</h2>
+        <article>
+          <p>
+            Rapidly exploring random trees (RRT) is a well-known algorithm for path-planning, but it is often computationally expensive and unstable. This is due to the fact that RRT must expand in all different directions, leading to significant variation in single core execution times, from quickly finding the goal to frequently hitting obstacles. 
+          </p>
+          <p>We list the potential setbacks below:</p>
+  
+          <ul>
+            <li>Implementing RRT with linear speedup using multiple cores in a single agent planning context is our first challenge.</li>
+            <li>Naive assignment of subtrees to each core can result in load imbalance due to some nodes hitting obstacles and terminating early.</li>
+            <li>Task stealing will be implemented to allow threads that have hit dead ends to take expanding subtrees from others and finish the work faster.</li>
+            <li>Careful selection of stolen data and when to steal is crucial to ensure correctness and minimize communication overhead.</li>
+            <li>Multi-agent planning requires additional considerations, such as allowing overlapping paths for agents travelling to the same spot at different times and resolving collisions when multiple agents occupy the same spot at the same time.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+
+</html>
